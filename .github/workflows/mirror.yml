@@ -1,4 +1,4 @@
-name: Mirror Bitbucket to GitHub
+name: Mirror GitHub to Bitbucket
 
 on:
   push:
@@ -19,24 +19,19 @@ jobs:
         git config --global user.name "github-actions"
         git config --global user.email "github-actions@github.com"
 
-    - name: Configure Git to Use Bitbucket Token
+    - name: Clone GitHub Repository
       run: |
-        git config --global credential.helper store
-        echo "https://kevintuei:${{ secrets.BITBUCKET_TOKEN }}@bitbucket.org" > ~/.git-credentials
-
-    - name: Clone Bitbucket Repository
-      run: |
-        git clone --mirror https://bitbucket.org/kevintuei/first-migration.git bitbucket-repo
+        git clone --mirror https://github.com/kevshakes/first-migration.git github-repo
 
     - name: Set Git Author Email for Bitbucket
       run: |
-        cd bitbucket-repo
+        cd github-repo
         git config user.email "9fgvzeelkpi5q5im5blgcew51x3w93@bots.bitbucket.org"
 
-    - name: Push to GitHub Repository
+    - name: Push to Bitbucket Repository
       env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        BITBUCKET_TOKEN: ${{ secrets.BITBUCKET_TOKEN }}
       run: |
-        cd bitbucket-repo
-        git remote add github https://github.com/kevshakes/first-migration.git
-        git push --mirror github
+        cd github-repo
+        git remote add bitbucket https://kevintuei:${{ secrets.BITBUCKET_TOKEN }}@bitbucket.org/kevintuei/first-migration.git
+        git push --mirror bitbucket
