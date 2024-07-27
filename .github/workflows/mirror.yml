@@ -21,11 +21,17 @@ jobs:
 
     - name: Configure Git to Use Bitbucket Token
       run: |
-        git config user.email 9fgvzeelkpi5q5im5blgcew51x3w93@bots.bitbucket.org
+        git config --global credential.helper store
+        echo "https://kevintuei:${{ secrets.BITBUCKET_TOKEN }}@bitbucket.org" > ~/.git-credentials
 
     - name: Clone Bitbucket Repository
       run: |
         git clone --mirror https://bitbucket.org/kevintuei/first-migration.git bitbucket-repo
+
+    - name: Set Git Author Email for Bitbucket
+      run: |
+        cd bitbucket-repo
+        git config user.email "9fgvzeelkpi5q5im5blgcew51x3w93@bots.bitbucket.org"
 
     - name: Push to GitHub Repository
       env:
