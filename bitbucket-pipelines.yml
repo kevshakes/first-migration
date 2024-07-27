@@ -6,6 +6,6 @@
           clone:
             enabled: false
           script:
-            - git clone --mirror https://x-token-auth:"$BITBUCKET_VARIABLE"@bitbucket.org/github_bitbucket/first-migration.git ## @bitbucket.org follow by your Bitbucket repository path
+            - git clone --mirror https://x-token-auth:"$BITBUCKET_VARIABLE"@bitbucket.org/kevintuei/first-migration.git ## @bitbucket.org follow by your Bitbucket repository path
             - cd first-migration.git ## cd followed by your Github repository Name
             - git push --mirror https://x-token-auth:"$GITHUB_VARIABLE"@github.com/kevshakes/first-migration.git ## @github.com followed by your Github repository path
