@@ -21,8 +21,7 @@ jobs:
 
     - name: Configure Git to Use Bitbucket Token
       run: |
-        git config --global credential.helper store
-        echo "https://kevintuei:${{ secrets.BITBUCKET_TOKEN }}@bitbucket.org" > ~/.git-credentials
+        git config user.email 9fgvzeelkpi5q5im5blgcew51x3w93@bots.bitbucket.org
 
     - name: Clone Bitbucket Repository
       run: |
