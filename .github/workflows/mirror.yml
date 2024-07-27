@@ -20,12 +20,14 @@ jobs:
         git config --global user.email "github-actions@github.com"
 
     - name: Clone Bitbucket Repository
+      env:
+        BITBUCKET_TOKEN: ${{ secrets.BITBUCKET_TOKEN }}
       run: |
-        git clone --mirror  https://kevintuei@bitbucket.org/kevintuei/first-migration.git bitbucket-repo
+        git clone --mirror https://kevintuei:${{ secrets.BITBUCKET_TOKEN }}@bitbucket.org/kevintuei/first-migration.git bitbucket-repo
 
     - name: Push to GitHub Repository
       env:
-        GH_TOKEN: ${{ secrets.MYGITHUB_TOKEN }}
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         cd bitbucket-repo
         git remote add github https://github.com/kevshakes/first-migration.git
